@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Major Project</title></head>
+<body>
+    <h1>My DevOps Project: Task Tracker</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="content" placeholder="Enter a task..." required>
+        <button type="submit">Save to MongoDB</button>
+    </form>
+    <hr>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.text }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
