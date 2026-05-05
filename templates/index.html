@@ -2,22 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DevOps Task Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 { color: #1a202c; margin-bottom: 5px; }
+        p.subtitle { color: #718096; margin-bottom: 30px; }
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #2f855a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #276749; }
+        .footer-info {
+            background-color: #f0fff4;
+            color: #276749;
+            padding: 10px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        ul { list-style: none; padding: 0; margin-top: 30px; text-align: left; }
+        li { background: #fff; border-bottom: 1px solid #edf2f7; padding: 10px; }
+    </style>
 </head>
 <body>
-    <h1>My DevOps Project: Task Tracker</h1>
-    
-    <form action="/add" method="POST">
-        <input type="text" name="content" placeholder="Enter a new task..." required>
-        <button type="submit">Add Task</button>
-    </form>
+    <div class="container">
+        <h1>Student Management System</h1>
+        <p class="subtitle">Final Year B.Tech Major Project</p>
+        
+        <form action="/add" method="POST" class="form-group">
+            <input type="text" name="content" placeholder="Enter Student Name (e.g. Akash Kushwaha)" required>
+            <button type="submit">Register Student</button>
+        </form>
 
-    <hr>
+        <div class="footer-info">
+            Backend: MongoDB | Pipeline: Jenkins & Docker
+        </div>
 
-    <ul>
-        {% for item in items %}
-            <li>{{ item.text }}</li>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for item in items %}
+                <li>{{ item.text }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
