@@ -3,84 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Management System</title>
+    <title>Student Management Portal</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-        }
-        h1 { color: #1a202c; margin-bottom: 5px; }
-        p.subtitle { color: #718096; margin-bottom: 30px; }
-        .form-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #2f855a;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        button:hover { background-color: #276749; }
-        .footer-info {
-            background-color: #f0fff4;
-            color: #276749;
-            padding: 10px;
-            border-radius: 20px;
-            display: inline-block;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-        ul { list-style: none; padding: 0; margin-top: 30px; text-align: left; }
-        li { background: #fff; border-bottom: 1px solid #edf2f7; padding: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 2rem; width: 80%; max-width: 500px; }
+        h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; gap: 12px; }
+        input, select, button { padding: 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 15px; outline: none; }
+        button { background-color: #27ae60; color: white; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #219150; }
+        table { width: 90%; margin-top: 2rem; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 50px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #34495e; color: white; text-transform: uppercase; font-size: 13px; }
+        tr:hover { background-color: #f9f9f9; }
+        .footer { padding-bottom: 30px; font-size: 13px; color: #95a5a6; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Student Management System</h1>
-        <p class="subtitle">Final Year B.Tech Major Project</p>
-        
-        <form action="/add" method="POST" class="form-group">
-            <input type="text" name="content" placeholder="Enter Student Name (e.g. Akash Kushwaha)" required>
-            <button type="submit">Register Student</button>
-        </form>
 
-        <div class="footer-info">
-            Backend: MongoDB | Pipeline: Jenkins & Docker
-        </div>
+<div class="container">
+    <h2>Student Registration</h2>
+    <p style="text-align: center; color: #7f8c8d; font-size: 14px; margin-top: -15px;">Final Year B.Tech Major Project</p>
+    
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Student Full Name" required>
+        <input type="text" name="roll_no" placeholder="Roll Number (e.g. 2026CS01)" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <select name="course" required>
+            <option value="" disabled selected>Select Course</option>
+            <option value="B.Tech CSE">B.Tech CSE</option>
+            <option value="B.Tech IT">B.Tech IT</option>
+            <option value="MCA">MCA</option>
+            <option value="M.Tech">M.Tech</option>
+        </select>
+        <button type="submit">Register Student</button>
+    </form>
+</div>
 
-        <ul>
-            {% for item in items %}
-                <li>{{ item.text }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+<table>
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Roll No</th>
+            <th>Email</th>
+            <th>Course</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll_no }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.course }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="footer">
+    Backend: Flask & MongoDB | Infrastructure: Jenkins & Docker on AWS
+</div>
+
 </body>
 </html>

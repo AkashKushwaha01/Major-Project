@@ -1,29 +1,30 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 from pymongo import MongoClient
+import os
 
 app = Flask(__name__)
 
-# CHANGE 1: RESTORED DATABASE CONNECTION
-# This connects to the 'db' container on port 27017
-client = MongoClient(host='db', port=27017)
-db = client.major_db
-collection = db.records
+# MongoDB Connection
+mongo_uri = os.environ.get('MONGO_URI', 'mongodb://db:27017/')
+client = MongoClient(mongo_uri)
+db = client.student_db
 
 @app.route('/')
 def index():
-    # CHANGE 2: RESTORED REAL DATA FETCH
-    # We are now pulling real data from MongoDB instead of a dummy list
-    items = collection.find()
-    return render_template('index.html', items=items)
+    students = list(db.students.find())
+    return render_template('index.html', students=students)
 
 @app.route('/add', methods=['POST'])
-def add():
-    # This captures the input from your form and saves it to MongoDB
-    content = request.form.get('content')
-    if content:
-        collection.insert_one({'text': content})
-    return redirect(url_for('index'))
+def add_student():
+    data = {
+        "name": request.form.get('name'),
+        "roll_no": request.form.get('roll_no'),
+        "email": request.form.get('email'),
+        "course": request.form.get('course')
+    }
+    if data["name"] and data["roll_no"]:
+        db.students.insert_one(data)
+    return redirect('/')
 
 if __name__ == '__main__':
-    # host='0.0.0.0' makes it accessible inside a Docker network
     app.run(host='0.0.0.0', port=5000)
